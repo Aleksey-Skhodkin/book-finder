@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setInputValue } from '../reducers/book-search-reducer';
+import { getBooks, setInputValue } from '../reducers/book-search-reducer';
 
 export default function SearchBar() {
 	const dispatch = useDispatch();
 	const value = useSelector(state => state.inputValue);
 
-	console.log(value);
+	useEffect(() => {
+		// console.log(value);
+		value && dispatch(getBooks(value));
+	}, [value])
 
-	function onFormSubmit(e) {
+	function handleSubmit(e) {
 		e.preventDefault();
 	}
 
@@ -17,7 +20,7 @@ export default function SearchBar() {
 	}
 
 	return (
-		<form onSubmit={onFormSubmit}>
+		<form onSubmit={handleSubmit}>
 			<input
 				type="text"
 				value={value}
