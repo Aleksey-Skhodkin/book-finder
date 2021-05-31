@@ -28,7 +28,7 @@ export const setFindedBooks = findedBooks => ({ type: SET_FINDED_BOOKS, payload:
 export const getBooks = (value) => async dispatch => {
 	const response = await getSearchedBooks(value);
 	const { docs, numFound } = response.data;
-	console.log(response);
-	console.log(docs, numFound);
+	// console.log(response);
+	// console.log(docs, numFound);
 	dispatch(setFindedBooks(docs));
 }
