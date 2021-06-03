@@ -29,6 +29,8 @@ export default function BookInfo() {
 	const dispatch = useDispatch();
 	const bookInfo = useSelector(state => state.bookInfo);
 
+	if (!bookInfo) return <div>Loading...</div>
+
 	const {
 		author_name,
 		cover_i,
@@ -47,11 +49,9 @@ export default function BookInfo() {
 		dispatch(setBookInfo(null));
 	}
 
-	if (!bookInfo) return <div>Loading...</div>
-
 	return (
 		<BookInfoWrapper>
-			<img src={`http://covers.openlibrary.org/b/id/${cover_i}-L.jpg`} alt="" />
+			<img src={`http://covers.openlibrary.org/b/id/${cover_i}-L.jpg`} alt="cover" />
 			<h1>{title}</h1>
 			<div>by <span>{author_name[0]}</span></div>
 			<hr />
