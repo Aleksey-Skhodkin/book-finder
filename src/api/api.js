@@ -7,3 +7,11 @@ const instance = axios.create({
 export const getSearchedBooks = value => {
 	return instance.get(`/search.json?q=${value}`)
 }
+
+export const getBookWorksData = key => {
+	return instance.get(`${key}.json`)
+}
+
+export const getBookEditionData = key => {
+	return instance.get(`/books/${key}.json`)
+}

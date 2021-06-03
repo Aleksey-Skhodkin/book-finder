@@ -6,17 +6,11 @@ export default function Content() {
 	const books = useSelector(state => state.findedBooks);
 
 	console.log(books);
+
 	return (
 		<div>
 			{
-				books?.map(({ author_name, title, isbn, key }) => (
-					<BookCard
-						key={key}
-						authorName={author_name}
-						title={title}
-						isbn={isbn}
-					/>)
-				)
+				books?.map(book => <BookCard key={book.key} book={book} />)
 			}
 		</div>
 	);
