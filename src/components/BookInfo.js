@@ -29,7 +29,16 @@ export default function BookInfo() {
 	const dispatch = useDispatch();
 	const bookInfo = useSelector(state => state.bookInfo);
 
-	const { author_name, cover_i, description, isbn_10, isbn_13, publish_date, publishers, title } = bookInfo;
+	const {
+		author_name,
+		cover_i,
+		description,
+		isbn_10,
+		isbn_13,
+		publish_date,
+		publishers,
+		title
+	} = bookInfo;
 
 	console.log(bookInfo);
 
@@ -44,7 +53,7 @@ export default function BookInfo() {
 		<BookInfoWrapper>
 			<img src={`http://covers.openlibrary.org/b/id/${cover_i}-L.jpg`} alt="" />
 			<h1>{title}</h1>
-			<div>by <span>{author_name}</span></div>
+			<div>by <span>{author_name[0]}</span></div>
 			<hr />
 			<div>
 				This edition was published in&nbsp;
@@ -54,8 +63,8 @@ export default function BookInfo() {
 			</div>
 			<hr />
 			<div>{description || `This edition doesn't have a description yet.`}</div>
-			<div>isbn10: {isbn_10 ? isbn_10[0] : '----'}</div>
-			<div>isbn13: {isbn_13 ? isbn_13[0] : '----'}</div>
+			<div>isbn10: <span>{isbn_10 ? isbn_10[0] : '----'}</span></div>
+			<div>isbn13: <span>{isbn_13 ? isbn_13[0] : '----'}</span></div>
 			<button
 				type='button'
 				onClick={onCloseClick}
