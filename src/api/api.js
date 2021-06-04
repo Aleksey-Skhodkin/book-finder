@@ -13,5 +13,7 @@ export const getBookWorksData = key => {
 }
 
 export const getBookEditionData = key => {
-	return instance.get(`/books/${key}.json`)
+	return key
+		? instance.get(`/books/${key}.json`)
+		: instance.get(`/books.json`)
 }

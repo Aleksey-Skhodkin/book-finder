@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
 import styled from 'styled-components';
 import { store } from '../store';
 
@@ -10,25 +10,31 @@ const ModalOverlay = styled.div`
 	left: 0;
 	width: 100vw;
 	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: rgba(0, 0, 0, 0.8);
+	opacity: ${props => props.isOpen ? '1' : '0'};
+	pointer-events: ${props => props.isOpen ? 'all' : 'none'};
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	transition: opacity .5s;
+
+	& .modal-content {
+		transform: ${props => props.isOpen ? 'scale(1)' : 'scale(0)'};
+		transition: transform .5s;
+	}
 `;
 
-export default function Modal({ children }) {
-	const isOpen = useSelector(state => state.modalIsOpen)
-
-	return isOpen
-		? ReactDOM.createPortal(
-			<Provider store={store}>
-				<ModalOverlay>
+export default function Modal({ children, isOpen }) {
+	return ReactDOM.createPortal(
+		<Provider store={store}>
+			<ModalOverlay isOpen={isOpen}>
+				<div className='modal-content'>
 					{children}
-				</ModalOverlay>,,
-			</Provider>,
-			document.getElementById('modal-root')
-		)
-		: null
+				</div>
+			</ModalOverlay>
+		</Provider>,
+		document.getElementById('modal-root')
+	)
 }
 
 

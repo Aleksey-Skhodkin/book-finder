@@ -58,10 +58,12 @@ export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
 
 	console.log(response);
 
-	const [
+	let [
 		{ description },
 		{ isbn_10, isbn_13, publish_date, publishers }
 	] = response.map(i => i.data);
+
+	if (typeof description === 'object') description = description.value;
 
 	dispatch(setBookInfo({
 		description,

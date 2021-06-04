@@ -36,7 +36,7 @@ const BookCardBox = styled.div`
 		& .no-image {
 			width: 100%;
 			height: 200px;
-			background-color: rgb(235, 235, 235);
+			background-color: var(--secondary-background-color);
 			font-size: 3rem;
 			color: grey;
 			display: flex;
@@ -67,10 +67,10 @@ export default function BookCard({ book }) {
 		title,
 	} = book;
 
+	console.log(cover_edition_key);
+
 	function onBookClick(e) {
-		//  open modal
 		dispatch(setIsModalOpen(true));
-		// set book info
 		dispatch(getBookInfo(key, cover_edition_key, {
 			author_name,
 			cover_edition_key,
@@ -96,7 +96,7 @@ export default function BookCard({ book }) {
 			</div>
 			<div>
 				<h1>{title}</h1>
-				<div className='author'>by {author_name}</div>
+				<div className='author'>by {author_name || 'unknown'}</div>
 			</div>
 		</BookCardBox>
 	);

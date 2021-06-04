@@ -13,8 +13,6 @@ const ContentWrapper = styled.div`
 export default function Content() {
 	const books = useSelector(state => state.findedBooks);
 
-	// console.log(books);
-
 	return (
 		<ContentWrapper>
 			{

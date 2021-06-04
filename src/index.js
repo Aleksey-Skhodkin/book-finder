@@ -6,6 +6,11 @@ import { store } from './store';
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
+    :root {
+        --primary-background-color: rgb(225,220,197);
+        --secondary-background-color: rgb(235, 235, 235);
+    }
+
     * {
         margin: 0;
         padding: 0;
@@ -15,7 +20,7 @@ const GlobalStyle = createGlobalStyle`
 
     body {
         font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
-        background-color: rgb(225,220,197);
+        background-color: var(--primary-background-color);
     }
 `;
 

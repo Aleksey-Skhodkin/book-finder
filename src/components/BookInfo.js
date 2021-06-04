@@ -2,27 +2,94 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setBookInfo, setIsModalOpen } from '../reducers/book-search-reducer';
 import styled from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBook } from '@fortawesome/free-solid-svg-icons';
 
 const BookInfoWrapper = styled.div`
+	padding: 10px;
 	position: relative;
-	background-color: white;
-	border-radius: 5px;
-	padding: 0 10px;
+	background-color: var(--secondary-background-color);
+	border-radius: 10px;
+	overflow: hidden;
+	display: grid;
+	grid-template-columns: auto 400px;
+	grid-template-rows: 450px;
+	grid-gap: 10px;
+
+	& > * {
+		color: rgb(70, 70, 70);
+	}
+
+	& .image {
+		border-radius: 10px;
+		overflow: hidden;
+		height: 450px;
+
+		& .image-container {
+			border: 1px solid red;
+			height: 100%;
+			display: flex;
+			align-items: center;
+
+			& img {
+				display: block;
+				height: 100%;
+			}
+		}
+	}
+
+	& .info {
+		display: flex;
+		flex-direction: column;
+
+		& .title {
+			font-size: 1.5rem;
+			color: black;
+			margin-bottom: 5px;
+		}
+
+		& .text {
+			overflow: scroll;
+
+			& .description {
+				font-size: 14px;
+				text-align: justify;
+			}
+		}
+	}
+
 
 	& hr {
-		border: none;
+		border: 0;
 		height: 1px;
-		background: rgb(204, 204, 204);
+		background-color: grey;
+		margin: 10px;
 	}
 
 	& button {
+		cursor: pointer;
 		position: absolute;
 		top: 0;
-		right: 0;
+		left: 0;
+		width: 40px;
+		height: 40px;
+		background-color: var(--secondary-background-color);
 		border: none;
-		background: none;
-		font-size: 1.5rem;
+		border-bottom-right-radius: 10px;
+		font-size: 2rem;
 	}
+`;
+
+const NoCoverContainer = styled.div`
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	font-size: 3rem;
+	border: 1px solid grey;
+	border-radius: 10px;
+	padding: 10px;
+	height: 100%;
 `;
 
 export default function BookInfo() {
@@ -42,8 +109,6 @@ export default function BookInfo() {
 		title
 	} = bookInfo;
 
-	console.log(bookInfo);
-
 	function onCloseClick() {
 		dispatch(setIsModalOpen(false));
 		dispatch(setBookInfo(null));
@@ -51,20 +116,38 @@ export default function BookInfo() {
 
 	return (
 		<BookInfoWrapper>
-			<img src={`http://covers.openlibrary.org/b/id/${cover_i}-L.jpg`} alt="cover" />
-			<h1>{title}</h1>
-			<div>by <span>{author_name[0]}</span></div>
-			<hr />
-			<div>
-				This edition was published in&nbsp;
-				<span>{publish_date || 'unknown date'}</span>&nbsp;
-				by&nbsp;
-				<span>{publishers ? publishers[0] : 'unknown publisher'}</span>
+			<div className='image'>
+				<div className='image-container'>
+					{
+						cover_i
+							? <img src={`http://covers.openlibrary.org/b/id/${cover_i}-L.jpg`} alt="cover" />
+							: <NoCoverContainer>
+								<FontAwesomeIcon icon={faBook} />
+								<p>no cover available</p>
+							</NoCoverContainer>
+					}
+				</div>
 			</div>
-			<hr />
-			<div>{description || `This edition doesn't have a description yet.`}</div>
-			<div>isbn10: <span>{isbn_10 ? isbn_10[0] : '----'}</span></div>
-			<div>isbn13: <span>{isbn_13 ? isbn_13[0] : '----'}</span></div>
+			<div className='info'>
+				<div>
+					<h1 className='title'>{title}</h1>
+					<div>by <b>{author_name[0]}</b></div>
+					<hr />
+					<div>
+						This edition was published in&nbsp;
+					<b>{publish_date || 'unknown date'}</b>&nbsp;
+					by&nbsp;
+					<b>{publishers ? publishers[0] : 'unknown publisher'}</b>
+					</div>
+					<hr />
+					<div>isbn10: <b>{isbn_10 ? isbn_10[0] : '----'}</b></div>
+					<div>isbn13: <b>{isbn_13 ? isbn_13[0] : '----'}</b></div>
+					<hr />
+				</div>
+				<div className='text'>
+					<p className='description'>{description || `This edition doesn't have a description yet.`}</p>
+				</div>
+			</div>
 			<button
 				type='button'
 				onClick={onCloseClick}
