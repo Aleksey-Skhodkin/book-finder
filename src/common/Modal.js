@@ -21,7 +21,22 @@ const ModalOverlay = styled.div`
 	& .modal-content {
 		transform: ${props => props.active ? 'scale(1)' : 'scale(0)'};
 		transition: transform .5s;
+		position: relative;
 	}
+`;
+
+const Button = styled.button`
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 45px;
+	height: 45px;
+	background-color: transparent;
+	border: none;
+	border-bottom-right-radius: 10px;
+	font-size: 2.5rem;
+	z-index: 1000;
 `;
 
 export default function Modal({ children, active, onClose }) {
@@ -41,6 +56,10 @@ export default function Modal({ children, active, onClose }) {
 		<Provider store={store}>
 			<ModalOverlay active={active}>
 				<div className='modal-content'>
+					<Button
+						type='button'
+						onClick={onClose}
+					>&times;</Button>
 					{children}
 				</div>
 			</ModalOverlay>

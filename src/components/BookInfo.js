@@ -1,6 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setBookInfo, setIsModalOpen } from '../reducers/book-search-reducer';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
@@ -26,7 +25,6 @@ const BookInfoWrapper = styled.div`
 		height: 450px;
 
 		& .image-container {
-			border: 1px solid red;
 			height: 100%;
 			display: flex;
 			align-items: center;
@@ -58,25 +56,11 @@ const BookInfoWrapper = styled.div`
 		}
 	}
 
-
 	& hr {
 		border: 0;
 		height: 1px;
 		background-color: grey;
 		margin: 10px;
-	}
-
-	& button {
-		cursor: pointer;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 40px;
-		height: 40px;
-		background-color: var(--secondary-background-color);
-		border: none;
-		border-bottom-right-radius: 10px;
-		font-size: 2rem;
 	}
 `;
 
@@ -93,7 +77,6 @@ const NoCoverContainer = styled.div`
 `;
 
 export default function BookInfo() {
-	const dispatch = useDispatch();
 	const bookInfo = useSelector(state => state.bookInfo);
 
 	if (!bookInfo) return <div>Loading...</div>
@@ -108,11 +91,6 @@ export default function BookInfo() {
 		publishers,
 		title
 	} = bookInfo;
-
-	function onCloseClick() {
-		dispatch(setIsModalOpen(false));
-		dispatch(setBookInfo(null));
-	}
 
 	return (
 		<BookInfoWrapper>
@@ -148,10 +126,6 @@ export default function BookInfo() {
 					<p className='description'>{description || `This edition doesn't have a description yet.`}</p>
 				</div>
 			</div>
-			<button
-				type='button'
-				onClick={onCloseClick}
-			>&times;</button>
 		</BookInfoWrapper>
 	);
 }
