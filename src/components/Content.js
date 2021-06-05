@@ -14,7 +14,7 @@ const ContentContainer = styled.div`
 
 const ContentWrapper = styled.div`
 	width: 100%;
-	margin: 10px;
+	padding: 10px;
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
 	grid-gap: 10px;

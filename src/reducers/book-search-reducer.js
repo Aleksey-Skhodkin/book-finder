@@ -72,8 +72,6 @@ export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
 		getBookEditionData(editionKey)
 	]);
 
-	console.log(response);
-
 	let [
 		{ description },
 		{ isbn_10, isbn_13, publish_date, publishers }
