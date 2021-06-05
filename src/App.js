@@ -13,7 +13,7 @@ const AppWrapper = styled.div`
     }
 
     & .wrapper {
-        max-width: 1440px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 `;

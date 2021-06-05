@@ -45,10 +45,6 @@ export default function SearchBar() {
 		input.current.focus();
 	}, [])
 
-	useEffect(() => {
-		value && dispatch(getBooks(value));
-	}, [value])
-
 	function handleSubmit(e) {
 		e.preventDefault();
 		dispatch(getBooks(value));
@@ -57,6 +53,7 @@ export default function SearchBar() {
 	function onFormClear() {
 		input.current.value = '';
 		dispatch(setInputValue(''));
+		input.current.focus();
 	}
 
 	const handleInput = debounce(text => dispatch(setInputValue(text)), 1000);

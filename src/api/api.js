@@ -4,8 +4,8 @@ const instance = axios.create({
 	baseURL: 'http://openlibrary.org',
 });
 
-export const getSearchedBooks = value => {
-	return instance.get(`/search.json?q=${value}`)
+export const getSearchedBooks = (value, pageNumber) => {
+	return instance.get(`/search.json?q=${value}&page=${pageNumber}`)
 }
 
 export const getBookWorksData = key => {

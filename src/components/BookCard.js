@@ -14,14 +14,14 @@ const BookCardBox = styled.div`
 	align-items: center;
 
 	& .image-wrapper {
-		height: 200px;
+		height: 150px;
 		display: flex;
 		justify-content: center;
 		align-items: center;
 	}
 
 	& .image-container {
-		width: 130px;
+		width: 100px;
 		max-height: 100%;
 		border-radius: 8px;
 		overflow: hidden;
@@ -35,7 +35,7 @@ const BookCardBox = styled.div`
 
 		& .no-image {
 			width: 100%;
-			height: 200px;
+			height: 150px;
 			background-color: var(--secondary-background-color);
 			font-size: 3rem;
 			color: grey;
@@ -66,8 +66,6 @@ export default function BookCard({ book }) {
 		key,
 		title,
 	} = book;
-
-	console.log(cover_edition_key);
 
 	function onBookClick(e) {
 		dispatch(setIsModalOpen(true));
