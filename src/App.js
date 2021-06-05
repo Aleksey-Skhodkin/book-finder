@@ -1,10 +1,11 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import BookInfo from './components/BookInfo';
 import Content from './components/Content';
-import Modal from './components/Modal';
+import Modal from './common/Modal';
 import styled from 'styled-components';
 import Header from './components/Header';
+import { setBookInfo, setIsModalOpen } from './reducers/book-search-reducer';
 
 const AppWrapper = styled.div`
     & header {
@@ -19,7 +20,13 @@ const AppWrapper = styled.div`
 `;
 
 export default function App() {
+    const dispatch = useDispatch();
     const isOpen = useSelector(state => state.modalIsOpen);
+
+    function onModalClose() {
+        dispatch(setIsModalOpen(false));
+        dispatch(setBookInfo(null));
+    }
 
     return (
         <AppWrapper>
@@ -32,7 +39,7 @@ export default function App() {
                 <Content />
             </div>
 
-            <Modal isOpen={isOpen}>
+            <Modal active={isOpen} onClose={onModalClose}>
                 <BookInfo />
             </Modal>
         </AppWrapper>

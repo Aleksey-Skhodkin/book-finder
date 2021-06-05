@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
@@ -11,23 +11,35 @@ const ModalOverlay = styled.div`
 	width: 100vw;
 	height: 100vh;
 	background-color: rgba(0, 0, 0, 0.8);
-	opacity: ${props => props.isOpen ? '1' : '0'};
-	pointer-events: ${props => props.isOpen ? 'all' : 'none'};
+	opacity: ${props => props.active ? '1' : '0'};
+	pointer-events: ${props => props.active ? 'all' : 'none'};
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	transition: opacity .5s;
 
 	& .modal-content {
-		transform: ${props => props.isOpen ? 'scale(1)' : 'scale(0)'};
+		transform: ${props => props.active ? 'scale(1)' : 'scale(0)'};
 		transition: transform .5s;
 	}
 `;
 
-export default function Modal({ children, isOpen }) {
+export default function Modal({ children, active, onClose }) {
+	useEffect(() => {
+		function handleKeyDown(e) {
+			if (e.key === 'Escape') onClose();
+		}
+
+		window.addEventListener('keydown', handleKeyDown)
+
+		return () => {
+			window.removeEventListener('keydown', handleKeyDown)
+		}
+	}, [])
+
 	return ReactDOM.createPortal(
 		<Provider store={store}>
-			<ModalOverlay isOpen={isOpen}>
+			<ModalOverlay active={active}>
 				<div className='modal-content'>
 					{children}
 				</div>
