@@ -9,51 +9,15 @@ const BookInfoWrapper = styled.div`
 	position: relative;
 	background-color: var(--secondary-background-color);
 	border-radius: 10px;
-	overflow: hidden;
+	max-width: 100vw;
+	max-height: 100vh;
+	overflow: scroll;
 	display: grid;
-	grid-template-columns: auto 400px;
-	grid-template-rows: 450px;
+	grid-template-columns: repeat(auto-fit, minmax(300px, auto));
 	grid-gap: 10px;
 
 	& > * {
 		color: rgb(70, 70, 70);
-	}
-
-	& .image {
-		border-radius: 10px;
-		overflow: hidden;
-		height: 450px;
-
-		& .image-container {
-			height: 100%;
-			display: flex;
-			align-items: center;
-
-			& img {
-				display: block;
-				height: 100%;
-			}
-		}
-	}
-
-	& .info {
-		display: flex;
-		flex-direction: column;
-
-		& .title {
-			font-size: 1.5rem;
-			color: black;
-			margin-bottom: 5px;
-		}
-
-		& .text {
-			overflow: scroll;
-
-			& .description {
-				font-size: 14px;
-				text-align: justify;
-			}
-		}
 	}
 
 	& hr {
@@ -61,6 +25,45 @@ const BookInfoWrapper = styled.div`
 		height: 1px;
 		background-color: grey;
 		margin: 10px;
+	}
+`;
+
+const ImageSection = styled.div`
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	& .image-container {
+		border-radius: 10px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+
+		& img {
+			display: block;
+			width: 100%;
+		}
+	}
+`;
+
+const InfoSection = styled.div`
+	max-width: 500px;
+	display: flex;
+	flex-direction: column;
+
+	& .title {
+		font-size: 1.5rem;
+		color: black;
+		margin-bottom: 5px;
+	}
+
+	& .text {
+		overflow: scroll;
+
+		& .description {
+			font-size: 14px;
+			text-align: justify;
+		}
 	}
 `;
 
@@ -94,7 +97,7 @@ export default function BookInfo() {
 
 	return (
 		<BookInfoWrapper>
-			<div className='image'>
+			<ImageSection>
 				<div className='image-container'>
 					{
 						cover_i
@@ -105,8 +108,8 @@ export default function BookInfo() {
 							</NoCoverContainer>
 					}
 				</div>
-			</div>
-			<div className='info'>
+			</ImageSection>
+			<InfoSection>
 				<div>
 					<h1 className='title'>{title}</h1>
 					<div>by <b>{author_name[0]}</b></div>
@@ -125,7 +128,7 @@ export default function BookInfo() {
 				<div className='text'>
 					<p className='description'>{description || `This edition doesn't have a description yet.`}</p>
 				</div>
-			</div>
+			</InfoSection>
 		</BookInfoWrapper>
 	);
 }
