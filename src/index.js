@@ -16,6 +16,10 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-size: 1rem;
+        
+        & li {
+            list-style: none;
+        }
     }
 
     body {

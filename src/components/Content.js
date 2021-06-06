@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import BookCard from './BookCard';
 import styled from 'styled-components';
 import Paginator from './Paginator';
-import { getBooks, setCurrentPage } from '../reducers/book-search-reducer';
+import { getBooks } from '../reducers/book-search-reducer';
 
 const ContentContainer = styled.div`
 	display: flex;
@@ -37,10 +37,6 @@ export default function Content() {
 		totalBooks,
 		currentPage
 	} = useSelector(state => state);
-
-	useEffect(() => {
-		inputValue && dispatch(getBooks(inputValue));
-	}, [inputValue])
 
 	function onPageChange(pageNumber) {
 		dispatch(getBooks(inputValue, pageNumber));

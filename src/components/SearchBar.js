@@ -1,10 +1,15 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBooks, setInputValue } from '../reducers/book-search-reducer';
+import { getBooks, getBooksPreview, setFindedBooksPreview, setInputValue } from '../reducers/book-search-reducer';
 import { debounce } from '../utils/utils';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Dropdown from './Dropdown/Dropdown';
+
+const SearchFormWrapper = styled.div`
+	position: relative;
+`;
 
 const SearchForm = styled.form`
 	border-radius: 100px;
@@ -38,28 +43,33 @@ const SearchForm = styled.form`
 
 export default function SearchBar() {
 	const dispatch = useDispatch();
-	const value = useSelector(state => state.inputValue);
+	const { inputValue, findedBooksPreview } = useSelector(state => state);
 	const input = useRef();
 
 	useEffect(() => {
 		input.current.focus();
 	}, [])
 
+	useEffect(() => {
+		inputValue && dispatch(getBooksPreview(inputValue))
+	}, [inputValue])
+
 	function handleSubmit(e) {
 		e.preventDefault();
-		dispatch(getBooks(value));
+		dispatch(getBooks(inputValue));
 	}
 
 	function onFormClear() {
 		input.current.value = '';
 		dispatch(setInputValue(''));
+		dispatch(setFindedBooksPreview(null));
 		input.current.focus();
 	}
 
 	const handleInput = debounce(text => dispatch(setInputValue(text)), 1000);
 
 	return (
-		<div>
+		<SearchFormWrapper>
 			<SearchForm onSubmit={handleSubmit} >
 				<button type='submit'>
 					<FontAwesomeIcon icon={faSearch} />
@@ -76,6 +86,7 @@ export default function SearchBar() {
 					onClick={onFormClear}
 				>&times;</button>
 			</SearchForm>
-		</div>
+			{findedBooksPreview && <Dropdown items={findedBooksPreview} />}
+		</SearchFormWrapper>
 	);
 }
