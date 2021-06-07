@@ -16,7 +16,8 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-size: 1rem;
-        
+        scroll-behavior: smooth;
+
         & li {
             list-style: none;
         }

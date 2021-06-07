@@ -47,6 +47,7 @@ export default function Content() {
 
 	function onPageChange(pageNumber) {
 		dispatch(getBooks(inputValue, pageNumber));
+		window.scroll(0, 0);
 	}
 
 	return (

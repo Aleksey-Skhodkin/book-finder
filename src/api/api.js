@@ -18,7 +18,7 @@ export const getSearchedBooks = (value, pageNumber) => {
 	return instance.get(`/search.json`, {
 		params: {
 			q: value,
-			pageNumber,
+			page: pageNumber,
 			fields: 'key,cover_i,title,author_name,cover_edition_key'
 		}
 	})
