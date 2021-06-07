@@ -22,7 +22,7 @@ const FetchingBackground = styled.div`
 `;
 
 export default function Dropdown({ items }) {
-	const isFetching = useSelector(state => state.isFetching);
+	const { isFetchingPreview } = useSelector(state => state);
 
 	return (
 		<DropdownContainer>
@@ -30,7 +30,7 @@ export default function Dropdown({ items }) {
 				<ul>
 					{items?.map(item => <DropdownItem key={item.key} worksKey={item.key} {...item} />)}
 				</ul>
-				{isFetching ? <FetchingBackground /> : null}
+				{isFetchingPreview ? <FetchingBackground /> : null}
 			</div>
 		</DropdownContainer>
 	)

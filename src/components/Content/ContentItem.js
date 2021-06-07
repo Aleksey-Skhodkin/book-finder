@@ -1,11 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { getBookInfo, setIsModalOpen } from '../reducers/book-search-reducer';
+import { getBookInfo, setIsModalOpen } from '../../reducers/book-search-reducer';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
 
-const BookCardBox = styled.div`
+const ItemBox = styled.div`
 	cursor: pointer;
 	background-color: #fffceb;
 	border-radius: 5px;
@@ -56,7 +56,7 @@ const BookCardBox = styled.div`
 	}
 `;
 
-export default function BookCard({ book }) {
+export default function ContentItem({ book }) {
 	const dispatch = useDispatch();
 
 	const {
@@ -71,15 +71,13 @@ export default function BookCard({ book }) {
 		dispatch(setIsModalOpen(true));
 		dispatch(getBookInfo(key, cover_edition_key, {
 			author_name,
-			cover_edition_key,
 			cover_i,
-			key,
 			title,
 		}));
 	}
 
 	return (
-		<BookCardBox onClick={onBookClick}>
+		<ItemBox onClick={onBookClick}>
 			<div className='image-wrapper'>
 				<div className='image-container'>
 					{
@@ -96,6 +94,6 @@ export default function BookCard({ book }) {
 				<h1>{title}</h1>
 				<div className='author'>by {author_name || 'unknown'}</div>
 			</div>
-		</BookCardBox>
+		</ItemBox>
 	);
 }

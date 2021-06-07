@@ -1,15 +1,19 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import BookCard from './BookCard';
+import BookCard from './ContentItem';
 import styled from 'styled-components';
-import Paginator from './Paginator';
-import { getBooks } from '../reducers/book-search-reducer';
+import Paginator from '../Paginator';
+import { getBooks } from '../../reducers/book-search-reducer';
 
 const ContentContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+
+	& h1 {
+		margin-top: 10px;
+	}
 `;
 
 const ContentWrapper = styled.div`
@@ -30,7 +34,8 @@ const Loading = styled.div`
 
 export default function Content() {
 	const dispatch = useDispatch();
-	const isFetching = useSelector(state => state.isFetching);
+	const { isFetchingBooks } = useSelector(state => state);
+
 
 	const {
 		inputValue,
@@ -45,20 +50,26 @@ export default function Content() {
 	}
 
 	return (
-		findedBooks
-			? <ContentContainer>
-				<ContentWrapper>
-					{
-						findedBooks?.map(book => <BookCard key={book.key} book={book} />)
-					}
-				</ContentWrapper>
-				<Paginator
-					totalCount={totalBooks}
-					itemsOnPage={booksOnPage}
-					currentPage={currentPage}
-					setCurrentPage={onPageChange}
-				/>
-			</ContentContainer>
+		!isFetchingBooks
+			? < ContentContainer >
+				{
+					findedBooks &&
+					<>
+						<h1>Results for: '{inputValue}'</h1>
+						<ContentWrapper>
+							{
+								findedBooks?.map(book => <BookCard key={book.key} book={book} />)
+							}
+						</ContentWrapper>
+						<Paginator
+							totalCount={totalBooks}
+							itemsOnPage={booksOnPage}
+							currentPage={currentPage}
+							setCurrentPage={onPageChange}
+						/>
+					</>
+				}
+			</ContentContainer >
 			: <Loading>Searching...</Loading>
 	);
 }

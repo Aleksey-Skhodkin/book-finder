@@ -7,7 +7,8 @@ const SET_MODAL_IS_OPEN = 'SET-MODAL-IS-OPEN';
 const SET_BOOK_INFO = 'SET-BOOK-INFO';
 const SET_TOTAL_BOOKS = 'SET-TOTAL-BOOKS';
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE';
-const SET_IS_FETCHING = 'SET-IS-FETCHING';
+const SET_IS_FETCHING_PREVIEW = 'SET-IS-FETCHING-PREVIEW';
+const SET_IS_FETCHING_BOOKS = 'SET-IS-FETCHING-BOOKS';
 
 const initialState = {
 	inputValue: '',
@@ -18,14 +19,16 @@ const initialState = {
 	booksOnPage: 100,
 	totalBooks: '',
 	currentPage: 1,
-	isFetching: false,
+	isFetchingPreview: false,
+	isFetchingBooks: false,
 };
 
 export default function bookSearchReducer(state = initialState, action) {
 	const { type, payload } = action;
 
 	switch (type) {
-		case SET_IS_FETCHING:
+		case SET_IS_FETCHING_BOOKS:
+		case SET_IS_FETCHING_PREVIEW:
 		case SET_CURRENT_PAGE:
 		case SET_TOTAL_BOOKS:
 		case SET_BOOK_INFO:
@@ -66,34 +69,40 @@ export const setCurrentPage = currentPage => ({
 	type: SET_CURRENT_PAGE,
 	payload: { currentPage }
 })
-export const setIsFetching = isFetching => ({
-	type: SET_IS_FETCHING,
-	payload: { isFetching }
+export const setIsFetchingPreview = isFetchingPreview => ({
+	type: SET_IS_FETCHING_PREVIEW,
+	payload: { isFetchingPreview }
+})
+export const setIsFetchingBooks = isFetchingBooks => ({
+	type: SET_IS_FETCHING_BOOKS,
+	payload: { isFetchingBooks }
 })
 
 export const getBooks = (value, pageNumber = 1) => async dispatch => {
-	dispatch(setIsFetching(true));
+	if (!value) return;
+	dispatch(setIsFetchingBooks(true));
 	const response = await getSearchedBooks(value, pageNumber);
 	const { docs, numFound } = response.data;
-
-	console.log(response);
 
 	dispatch(setFindedBooks(docs));
 	dispatch(setTotalBooks(numFound));
 	dispatch(setCurrentPage(pageNumber));
-	dispatch(setIsFetching(false));
+	dispatch(setIsFetchingBooks(false));
 }
 
 export const getBooksPreview = value => async dispatch => {
-	dispatch(setIsFetching(true));
-	const response = await getSearchedBooksPreview(value);
-	const { docs } = response.data;
-	dispatch(setFindedBooksPreview(docs));
-	dispatch(setIsFetching(false));
+	if (!value) {
+		dispatch(setFindedBooksPreview(null));
+	} else {
+		dispatch(setIsFetchingPreview(true));
+		const response = await getSearchedBooksPreview(value);
+		const { docs } = response.data;
+		dispatch(setFindedBooksPreview(docs));
+		dispatch(setIsFetchingPreview(false));
+	}
 }
 
 export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
-	dispatch(setIsFetching(true));
 	const response = await Promise.all([
 		getBookWorksData(worksKey),
 		getBookEditionData(editionKey)
@@ -114,5 +123,4 @@ export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
 		publishers,
 		...info
 	}));
-	dispatch(setIsFetching(false));
 }

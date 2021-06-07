@@ -79,10 +79,14 @@ const NoCoverContainer = styled.div`
 	height: 100%;
 `;
 
+const Loading = styled.div`
+	color: white;
+`;
+
 export default function BookInfo() {
 	const bookInfo = useSelector(state => state.bookInfo);
 
-	if (!bookInfo) return <div>Loading...</div>
+	if (!bookInfo) return <Loading>Loading...</Loading>
 
 	const {
 		author_name,

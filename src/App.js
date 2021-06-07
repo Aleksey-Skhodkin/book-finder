@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import BookInfo from './components/BookInfo';
-import Content from './components/Content';
+import Content from './components/Content/Content';
 import Modal from './common/Modal';
 import styled from 'styled-components';
 import Header from './components/Header';

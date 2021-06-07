@@ -51,9 +51,7 @@ export default function SearchBar() {
 	}, [])
 
 	useEffect(() => {
-		inputValue
-			? dispatch(getBooksPreview(inputValue))
-			: dispatch(getBooksPreview(null))
+		dispatch(getBooksPreview(inputValue))
 	}, [inputValue])
 
 	function handleSubmit(e) {
