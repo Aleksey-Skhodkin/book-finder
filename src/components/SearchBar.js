@@ -80,6 +80,8 @@ export default function SearchBar() {
 					placeholder='search...'
 					ref={input}
 					onChange={e => handleInput(e.target.value)}
+					onBlur={() => dispatch(setFindedBooksPreview(null))}
+					onFocus={() => inputValue && dispatch(getBooksPreview(inputValue))}
 				/>
 				<button
 					className='reset'
