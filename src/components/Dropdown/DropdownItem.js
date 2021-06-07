@@ -34,7 +34,7 @@ export default function DropdownItem({ cover_i, title, author_name, worksKey, co
 	}
 
 	return (
-		<DropdownItemContainer onClick={handleClick}>
+		<DropdownItemContainer onMouseDown={handleClick}>
 			<div className='image-container'>
 				<img src={`http://covers.openlibrary.org/b/id/${cover_i}-S.jpg`} alt="" />
 			</div>
