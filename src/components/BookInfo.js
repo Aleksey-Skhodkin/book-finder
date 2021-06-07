@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook } from '@fortawesome/free-solid-svg-icons';
+import Loader from '../common/Loader';
 
 const BookInfoWrapper = styled.div`
 	padding: 10px;
@@ -79,14 +80,10 @@ const NoCoverContainer = styled.div`
 	height: 100%;
 `;
 
-const Loading = styled.div`
-	color: white;
-`;
-
 export default function BookInfo() {
 	const bookInfo = useSelector(state => state.bookInfo);
 
-	if (!bookInfo) return <Loading>Loading...</Loading>
+	if (!bookInfo) return <Loader color='white'>Loading...</Loader>
 
 	const {
 		author_name,

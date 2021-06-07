@@ -4,6 +4,7 @@ import BookCard from './ContentItem';
 import styled from 'styled-components';
 import Paginator from '../Paginator';
 import { getBooks } from '../../reducers/book-search-reducer';
+import Loader from '../../common/Loader';
 
 const ContentContainer = styled.div`
 	display: flex;
@@ -71,6 +72,6 @@ export default function Content() {
 					</>
 				}
 			</ContentContainer >
-			: <Loading>Searching...</Loading>
+			: <Loader>Searching...</Loader>
 	);
 }
