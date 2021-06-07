@@ -54,6 +54,10 @@ const ItemBox = styled.div`
 	& .author {
 		font-size: 12px;
 	}
+
+	& h1 {
+		color: black;
+	}
 `;
 
 export default function ContentItem({ book }) {

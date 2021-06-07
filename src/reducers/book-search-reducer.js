@@ -79,7 +79,6 @@ export const setIsFetchingBooks = isFetchingBooks => ({
 })
 
 export const getBooks = (value, pageNumber = 1) => async dispatch => {
-	if (!value) return;
 	dispatch(setIsFetchingBooks(true));
 	const response = await getSearchedBooks(value, pageNumber);
 	const { docs, numFound } = response.data;

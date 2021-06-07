@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { store } from './store';
 import { createGlobalStyle } from 'styled-components';
+import { BrowserRouter } from "react-router-dom";
 
 const GlobalStyle = createGlobalStyle`
     :root {
@@ -31,12 +32,14 @@ const GlobalStyle = createGlobalStyle`
 
 ReactDOM.render(
     <React.StrictMode>
-        <Provider store={store}>
-            <>
-                <GlobalStyle />
-                <App />
-            </>
-        </Provider>
+        <BrowserRouter>
+            <Provider store={store}>
+                <>
+                    <GlobalStyle />
+                    <App />
+                </>
+            </Provider>
+        </BrowserRouter>
     </React.StrictMode>,
     document.getElementById('root')
 );

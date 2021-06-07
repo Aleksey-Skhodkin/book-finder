@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Dropdown from './Dropdown/Dropdown';
+import { useHistory } from "react-router-dom";
 
 const SearchFormWrapper = styled.div`
 	position: relative;
@@ -45,6 +46,7 @@ export default function SearchBar() {
 	const dispatch = useDispatch();
 	const { inputValue, findedBooksPreview } = useSelector(state => state);
 	const input = useRef();
+	const history = useHistory();
 
 	useEffect(() => {
 		input.current.focus();
@@ -56,6 +58,7 @@ export default function SearchBar() {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		history.push("/content");
 		dispatch(setFindedBooksPreview(null));
 		dispatch(getBooks(inputValue));
 	}

@@ -6,6 +6,8 @@ import Modal from './common/Modal';
 import styled from 'styled-components';
 import Header from './components/Header';
 import { setBookInfo, setIsModalOpen } from './reducers/book-search-reducer';
+import AboutMe from './components/AboutMe';
+import { Switch, Route } from "react-router-dom";
 
 const AppWrapper = styled.div`
     & header {
@@ -36,7 +38,10 @@ export default function App() {
                 </div>
             </header>
             <div className='wrapper'>
-                <Content />
+                <Switch>
+                    <Route exact path="/" component={AboutMe} />
+                    <Route path="/content" component={Content} />
+                </Switch>
             </div>
 
             <Modal active={isOpen} onClose={onModalClose}>

@@ -14,6 +14,7 @@ const ContentContainer = styled.div`
 
 	& h1 {
 		margin-top: 10px;
+		color: grey;
 	}
 `;
 
@@ -25,18 +26,9 @@ const ContentWrapper = styled.div`
 	grid-gap: 10px;
 `;
 
-const Loading = styled.div`
-	background-color: rgba(0, 0, 0, 0.2);
-	height: 100vh;
-	display: flex;
-	justify-content:center;
-	align-items: center;
-`;
-
 export default function Content() {
 	const dispatch = useDispatch();
 	const { isFetchingBooks } = useSelector(state => state);
-
 
 	const {
 		inputValue,
