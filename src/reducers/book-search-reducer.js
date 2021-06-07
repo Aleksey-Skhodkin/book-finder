@@ -79,47 +79,59 @@ export const setIsFetchingBooks = isFetchingBooks => ({
 })
 
 export const getBooks = (value, pageNumber = 1) => async dispatch => {
-	dispatch(setIsFetchingBooks(true));
-	const response = await getSearchedBooks(value, pageNumber);
-	const { docs, numFound } = response.data;
+	try {
+		dispatch(setIsFetchingBooks(true));
+		const response = await getSearchedBooks(value, pageNumber);
+		const { docs, numFound } = response.data;
 
-	dispatch(setFindedBooks(docs));
-	dispatch(setTotalBooks(numFound));
-	dispatch(setCurrentPage(pageNumber));
-	dispatch(setIsFetchingBooks(false));
+		dispatch(setFindedBooks(docs));
+		dispatch(setTotalBooks(numFound));
+		dispatch(setCurrentPage(pageNumber));
+		dispatch(setIsFetchingBooks(false));
+	} catch (e) {
+		console.log(e);
+	}
 }
 
 export const getBooksPreview = value => async dispatch => {
-	if (!value) {
-		dispatch(setFindedBooksPreview(null));
-	} else {
-		dispatch(setIsFetchingPreview(true));
-		const response = await getSearchedBooksPreview(value);
-		const { docs } = response.data;
-		dispatch(setFindedBooksPreview(docs));
-		dispatch(setIsFetchingPreview(false));
+	try {
+		if (!value) {
+			dispatch(setFindedBooksPreview(null));
+		} else {
+			dispatch(setIsFetchingPreview(true));
+			const response = await getSearchedBooksPreview(value);
+			const { docs } = response.data;
+			dispatch(setFindedBooksPreview(docs));
+			dispatch(setIsFetchingPreview(false));
+		}
+	} catch (e) {
+		console.log(e);
 	}
 }
 
 export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
-	const response = await Promise.all([
-		getBookWorksData(worksKey),
-		getBookEditionData(editionKey)
-	]);
+	try {
+		const response = await Promise.all([
+			getBookWorksData(worksKey),
+			getBookEditionData(editionKey)
+		]);
 
-	let [
-		{ description },
-		{ isbn_10, isbn_13, publish_date, publishers }
-	] = response.map(i => i.data);
+		let [
+			{ description },
+			{ isbn_10, isbn_13, publish_date, publishers }
+		] = response.map(i => i.data);
 
-	if (typeof description === 'object') description = description.value;
+		if (typeof description === 'object') description = description.value;
 
-	dispatch(setBookInfo({
-		description,
-		isbn_10,
-		isbn_13,
-		publish_date,
-		publishers,
-		...info
-	}));
+		dispatch(setBookInfo({
+			description,
+			isbn_10,
+			isbn_13,
+			publish_date,
+			publishers,
+			...info
+		}));
+	} catch (e) {
+		console.log(e);
+	}
 }

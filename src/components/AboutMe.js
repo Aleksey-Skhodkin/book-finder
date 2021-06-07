@@ -19,7 +19,7 @@ export default function AboutMe() {
 			<p>Приложение для отклика на вакансию: стажер – разработчик интерфейсов в Авто.ру</p>
 			<p>Исполнитель: Сходкин Алексей</p>
 			<p>
-				<a href="https://hh.ru/resume/7b13ab1dff08ce7df90039ed1f443943616c37">Ссылка на github</a>
+				<a href="https://github.com/Aleksey-Skhodkin/book-finder-app">Ссылка на github</a>
 			</p>
 			<ul>
 				<b>Мои контакты:</b>
