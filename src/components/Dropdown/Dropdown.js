@@ -28,7 +28,7 @@ export default function Dropdown({ items }) {
 		<DropdownContainer>
 			<div className='wrapper'>
 				<ul>
-					{items?.map(item => <DropdownItem key={item.key} {...item} />)}
+					{items?.map(item => <DropdownItem key={item.key} worksKey={item.key} {...item} />)}
 				</ul>
 				{isFetching ? <FetchingBackground /> : null}
 			</div>

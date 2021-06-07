@@ -72,14 +72,16 @@ export const setIsFetching = isFetching => ({
 })
 
 export const getBooks = (value, pageNumber = 1) => async dispatch => {
+	dispatch(setIsFetching(true));
 	const response = await getSearchedBooks(value, pageNumber);
 	const { docs, numFound } = response.data;
 
-	// console.log(response);
+	console.log(response);
 
 	dispatch(setFindedBooks(docs));
 	dispatch(setTotalBooks(numFound));
 	dispatch(setCurrentPage(pageNumber));
+	dispatch(setIsFetching(false));
 }
 
 export const getBooksPreview = value => async dispatch => {
@@ -91,6 +93,7 @@ export const getBooksPreview = value => async dispatch => {
 }
 
 export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
+	dispatch(setIsFetching(true));
 	const response = await Promise.all([
 		getBookWorksData(worksKey),
 		getBookEditionData(editionKey)
@@ -111,4 +114,5 @@ export const getBookInfo = (worksKey, editionKey, info) => async dispatch => {
 		publishers,
 		...info
 	}));
+	dispatch(setIsFetching(false));
 }

@@ -9,15 +9,20 @@ export const getSearchedBooksPreview = value => {
 		params: {
 			q: value,
 			limit: 8,
-			fields: 'key,cover_i,title,author_name'
+			fields: 'key,cover_i,title,author_name,cover_edition_key'
 		}
 	})
 }
 
 export const getSearchedBooks = (value, pageNumber) => {
-	return instance.get(`/search.json?q=${value}&page=${pageNumber}`)
+	return instance.get(`/search.json`, {
+		params: {
+			q: value,
+			pageNumber,
+			fields: 'key,cover_i,title,author_name,cover_edition_key'
+		}
+	})
 }
-
 
 export const getBookWorksData = key => {
 	return instance.get(`${key}.json`)

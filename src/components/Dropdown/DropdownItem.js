@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
+import { getBookInfo, setIsModalOpen } from '../../reducers/book-search-reducer';
 
 const DropdownItemContainer = styled.li`
 	background-color: white;
@@ -8,6 +10,7 @@ const DropdownItemContainer = styled.li`
 	display: flex;
 	color: rgb(70, 70, 70);
 	font-size: 14px;
+	cursor: pointer;
 
 	& .image-container {
 		margin-right: 5px;
@@ -18,9 +21,20 @@ const DropdownItemContainer = styled.li`
 	}
 `;
 
-export default function DropdownItem({ cover_i, title, author_name }) {
+export default function DropdownItem({ cover_i, title, author_name, worksKey, cover_edition_key }) {
+	const dispatch = useDispatch();
+
+	function handleClick() {
+		dispatch(setIsModalOpen(true));
+		dispatch(getBookInfo(worksKey, cover_edition_key, {
+			cover_i,
+			title,
+			author_name
+		}))
+	}
+
 	return (
-		<DropdownItemContainer>
+		<DropdownItemContainer onClick={handleClick}>
 			<div className='image-container'>
 				<img src={`http://covers.openlibrary.org/b/id/${cover_i}-S.jpg`} alt="" />
 			</div>

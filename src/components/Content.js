@@ -30,6 +30,8 @@ const Loading = styled.div`
 
 export default function Content() {
 	const dispatch = useDispatch();
+	const isFetching = useSelector(state => state.isFetching);
+
 	const {
 		inputValue,
 		booksOnPage,

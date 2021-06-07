@@ -56,6 +56,7 @@ export default function SearchBar() {
 
 	function handleSubmit(e) {
 		e.preventDefault();
+		dispatch(setFindedBooksPreview(null));
 		dispatch(getBooks(inputValue));
 	}
 
