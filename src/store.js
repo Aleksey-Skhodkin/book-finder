@@ -5,14 +5,9 @@ import bookSearchReducer from "./reducers/book-search-reducer";
 
 export const store = createStore(
 	bookSearchReducer,
-	applyMiddleware(thunk),
-);
-
-// export const store = createStore(
-// 	bookSearchReducer,
-// 	composeWithDevTools(
-// 		applyMiddleware(thunk)
-// 	)
-// )
+	composeWithDevTools(
+		applyMiddleware(thunk)
+	)
+)
 
 window.store = store;
